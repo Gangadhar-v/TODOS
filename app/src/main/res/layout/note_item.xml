@@ -26,6 +26,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:text="placeholder text"
+            android:paddingBottom="5dp"
             />
         <ImageButton
             android:backgroundTint="@color/white"
