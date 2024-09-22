@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="20dp"
+    android:padding="16dp"
+    android:backgroundTint="@color/white">
+
+    <LinearLayout
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:backgroundTint="@color/white">
+
+    <EditText
+        android:id="@+id/et_note"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Enter your note"
+        android:inputType="text"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        />
+
+    <Button
+        android:id="@+id/btn_add_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Note"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/black"
+        android:layout_marginTop="50dp"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
