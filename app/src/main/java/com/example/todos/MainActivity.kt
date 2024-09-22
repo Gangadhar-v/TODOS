@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.size
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -22,14 +23,15 @@ class MainActivity : AppCompatActivity() {
     lateinit var floatingAddBtn: FloatingActionButton
     lateinit var notesRecyclerView: RecyclerView
     lateinit var notesAdapter: NotesAdapter
+    lateinit var indicator:TextView
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+         indicator = findViewById<TextView>(R.id.indicate)
 
-        val indicate = findViewById<TextView>(R.id.indicate)
         floatingAddBtn = findViewById(R.id.addNoteflbtn)
         notesRecyclerView = findViewById(R.id.noteRecyclerView)
 
@@ -40,20 +42,17 @@ class MainActivity : AppCompatActivity() {
         notesRecyclerView.layoutManager = LinearLayoutManager(this)
         notesRecyclerView.adapter = notesAdapter
 
-        if(Database.database.size == 0){
 
-            notesRecyclerView.visibility = View.INVISIBLE
-            indicate.visibility = View.VISIBLE
-
-        }else{
-            notesRecyclerView.visibility = View.VISIBLE
-            indicate.visibility = View.INVISIBLE
-        }
-
+        updateViewVisibility()
 
         floatingAddBtn.setOnClickListener {
             showDialog()
+
         }
+
+
+
+
     }
 
     @SuppressLint("MissingInflatedId")
@@ -89,6 +88,7 @@ class MainActivity : AppCompatActivity() {
 
                 Toast.makeText(this, "Note added!", Toast.LENGTH_SHORT).show()
 
+                updateViewVisibility()
 
                 alertDialog.dismiss()
             }
@@ -96,5 +96,14 @@ class MainActivity : AppCompatActivity() {
 
 
         alertDialog.show()
+    }
+     fun updateViewVisibility() {
+        if (Database.database.size != 0) {
+            notesRecyclerView.visibility = View.VISIBLE
+            indicator.visibility = View.GONE
+        } else {
+            indicator.visibility = View.VISIBLE
+            notesRecyclerView.visibility = View.INVISIBLE
+        }
     }
 }

@@ -33,7 +33,7 @@
         android:textAlignment="center"
         android:paddingTop="300dp"
         android:textSize="40sp"
-        android:visibility="invisible"/>
+        android:visibility="visible"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/noteRecyclerView"
@@ -41,7 +41,8 @@
         android:layout_height="0dp"
         tools:listitem="@layout/note_item"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addNoteflbtn"
         android:layout_width="48dp"

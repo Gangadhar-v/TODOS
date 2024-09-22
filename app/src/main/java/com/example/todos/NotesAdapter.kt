@@ -60,6 +60,10 @@ class NotesAdapter(var context: Context, var noteDatabase:ArrayList<Note>): Recy
             notifyItemRemoved(position)
             notifyItemRangeChanged(position,noteDatabase.size)
             Toast.makeText(context,"Note Deleted!",Toast.LENGTH_SHORT).show()
+
+            if (noteDatabase.isEmpty()) {
+                (context as MainActivity).updateViewVisibility()
+            }
         }
     }
     private fun updateTextStrikethrough(textView: TextView, isChecked: Boolean) {
