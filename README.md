@@ -1,2 +1,2 @@
 # TODOS
-to-do application using RecyclerView
+to-do application using ArrayList Datastucture
