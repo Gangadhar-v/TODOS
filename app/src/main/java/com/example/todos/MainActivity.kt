@@ -11,12 +11,12 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.size
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.Gson;
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,8 +35,10 @@ class MainActivity : AppCompatActivity() {
         floatingAddBtn = findViewById(R.id.addNoteflbtn)
         notesRecyclerView = findViewById(R.id.noteRecyclerView)
 
+        val notes = getNotes()
+        Database.database = notes
 
-        notesAdapter = NotesAdapter(this,Database.database)
+        notesAdapter = NotesAdapter(this, notes)
 
 
         notesRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -49,9 +51,6 @@ class MainActivity : AppCompatActivity() {
             showDialog()
 
         }
-
-
-
 
     }
 
@@ -82,6 +81,7 @@ class MainActivity : AppCompatActivity() {
 
                 Database.database.add(0,Note(noteText, false))
 
+                saveNotes(Database.database);
 
                 notesAdapter.notifyItemInserted(0)
                 notesRecyclerView.scrollToPosition(0) // Scroll to the newly added note
@@ -106,4 +106,30 @@ class MainActivity : AppCompatActivity() {
             notesRecyclerView.visibility = View.INVISIBLE
         }
     }
+
+    public fun saveNotes( notes:ArrayList<Note>){
+
+        val sharedPreference = getSharedPreferences("todos", MODE_PRIVATE)
+        val gson = Gson();
+        val json:String = gson.toJson(notes);
+        val editor = sharedPreference.edit();
+        editor.putString("notes_list",json)
+        editor.apply();
+    }
+
+    fun getNotes():ArrayList<Note>{
+
+        val sharedPreference = getSharedPreferences("todos", MODE_PRIVATE)
+
+        val gson = Gson()
+        val json = sharedPreference.getString("notes_list",null);
+        if (json == null) {
+            return ArrayList()
+        }
+        val type = object:TypeToken<ArrayList<Note>>(){}.type
+
+        return gson.fromJson(json,type);
+    }
+
+
 }

@@ -27,6 +27,7 @@
             android:textStyle="bold"
             android:text="placeholder text"
             android:paddingBottom="5dp"
+            android:paddingVertical="10dp"
             />
         <ImageButton
             android:backgroundTint="@color/white"
